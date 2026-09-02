@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Orders · Inventory Console</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<div class="app-shell">
+
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-mark">IC</div>
+      <div>
+        <div class="brand-name">Inventory Console</div>
+        <div class="brand-sub">Warehouse operations</div>
+      </div>
+    </div>
+    <nav class="nav">
+      <a class="nav-link" href="/index.html" data-icon="box"><span>Products</span></a>
+      <a class="nav-link active" href="/orders.html" data-icon="cart"><span>Orders</span></a>
+    </nav>
+    <div class="sidebar-foot">
+      API docs at<br><code>/swagger-ui.html</code>
+    </div>
+  </aside>
+
+  <main class="main">
+    <div class="page-head">
+      <div>
+        <h1 class="page-title">Orders</h1>
+        <p class="page-sub">Place Customer and Premium orders, and see who's next in line.</p>
+      </div>
+      <button class="btn btn-primary" id="placeBtn"><span>Place order</span></button>
+    </div>
+
+    <div class="stat-row">
+      <div class="stat-card">
+        <div class="stat-label">Total orders</div>
+        <div class="stat-value" id="statTotal">—</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Premium orders</div>
+        <div class="stat-value premium" id="statPremium">—</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Regular orders</div>
+        <div class="stat-value accent" id="statRegular">—</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Customers</div>
+        <div class="stat-value" id="statCustomers">—</div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="toolbar">
+        <div class="search-field">
+          <span id="searchIcon"></span>
+          <input type="text" id="searchInput" placeholder="Search by customer name…">
+        </div>
+        <select class="filter" id="premiumFilter">
+          <option value="">All orders</option>
+          <option value="true">Premium only</option>
+          <option value="false">Regular only</option>
+        </select>
+      </div>
+
+      <table id="ordersTable">
+        <thead>
+          <tr>
+            <th>Order</th>
+            <th>Customer</th>
+            <th>Product</th>
+            <th>Qty</th>
+            <th>Type</th>
+            <th>Queue</th>
+            <th>Placed</th>
+          </tr>
+        </thead>
+        <tbody id="ordersBody"></tbody>
+      </table>
+
+      <div class="empty-state" id="emptyState" style="display:none;">
+        <p>No orders match yet. Place the first order to get started.</p>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- Place order modal -->
+<div class="overlay" id="placeOverlay">
+  <div class="modal">
+    <div class="modal-head">
+      <h3>Place order</h3>
+      <button class="modal-close" data-close="placeOverlay"></button>
+    </div>
+    <form id="placeForm">
+      <div class="modal-body">
+        <div class="form-error" id="placeFormError"></div>
+        <div class="field">
+          <label for="placeCustomer">Customer name</label>
+          <input type="text" id="placeCustomer" placeholder="Jordan Blake" required>
+        </div>
+        <div class="field">
+          <label for="placeProduct">Product</label>
+          <select id="placeProduct" required></select>
+        </div>
+        <div class="field">
+          <label for="placeQuantity">Quantity</label>
+          <input type="number" id="placeQuantity" min="1" step="1" value="1" required>
+        </div>
+        <div class="toggle-row">
+          <span>Premium order</span>
+          <input type="checkbox" id="premiumToggle">
+        </div>
+        <div class="field" id="priorityField" style="display:none;">
+          <label for="placePriority">Priority level (1 = served first)</label>
+          <input type="number" id="placePriority" min="1" step="1" placeholder="1">
+        </div>
+      </div>
+      <div class="modal-foot">
+        <button type="button" class="btn btn-ghost" data-close="placeOverlay">Cancel</button>
+        <button type="submit" class="btn btn-primary">Place order</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script src="/js/api.js"></script>
+<script src="/js/orders.js"></script>
+<script>
+  document.getElementById('placeBtn').insertAdjacentHTML('afterbegin', Icons.plus);
+  document.getElementById('searchIcon').innerHTML = Icons.search;
+  document.querySelectorAll('.modal-close').forEach(b => b.innerHTML = Icons.close);
+  document.getElementById('emptyState').insertAdjacentHTML('afterbegin', Icons.empty);
+  document.querySelectorAll('.nav-link[data-icon]').forEach(a => {
+    a.insertAdjacentHTML('afterbegin', Icons[a.getAttribute('data-icon')]);
+  });
+</script>
+</body>
+</html>
