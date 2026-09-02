@@ -5,7 +5,7 @@ A small Spring Boot + PostgreSQL app with two pages - **Products** and
 `{ success, data, error, meta }` JSON envelope on every endpoint, and
 strict layering (`Controller -> Service -> Repository -> Entity`).
 
-## 1. Prerequisites
+## 1. Prerequisites 
  
 - JDK 17+
 - Maven (or just use IntelliJ, which bundles it)
