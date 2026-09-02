@@ -6,7 +6,7 @@ A small Spring Boot + PostgreSQL app with two pages - **Products** and
 strict layering (`Controller -> Service -> Repository -> Entity`).
 
 ## 1. Prerequisites   
-   
+    
 - JDK 17+
 - Maven (or just use IntelliJ, which bundles it)
 - PostgreSQL running locally (default port `5432`)
