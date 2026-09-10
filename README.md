@@ -4,7 +4,7 @@ A small Spring Boot + PostgreSQL app with two pages - **Products** and
 **Orders** - covering all 9 required features, a standard
 `{ success, data, error, meta }` JSON envelope on every endpoint, and
 strict layering (`Controller -> Service -> Repository -> Entity`).
-
+ 
 ## 1. Prerequisites         
         
 - JDK 17+
